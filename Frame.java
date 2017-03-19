@@ -10,9 +10,10 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.Global;
 public class Frame {
-    public static final double SECONDS_BETWEEN_FRAMES = 5;
+	public static int i=1;
+    public static final double SECONDS_BETWEEN_FRAMES = 0.033; // we took this value because  the frame rate is 30frames/sec
     private static final String inputFilename = "C:/Users/user/Documents/Java gesture recognistion/convertFormatVideo/knot.avi";
-    private static final String outputFilePrefix = "C:/Users/user/Documents/Java gesture recognistion/convertFormatVideo/frame";
+    private static final String outputFilePrefix = "C:/Users/user/Documents/Java gesture recognistion/Images/frame";
     // The video stream index, used to ensure we display frames from one and
     // only one video stream from the media container
     private static int mVideoStreamIndex = -1;
@@ -63,9 +64,11 @@ public class Frame {
         }
         private String dumpImageToFile(BufferedImage image) {
             try {
-                String outputFilename = outputFilePrefix + System.currentTimeMillis() + ".png";
+                String outputFilename = outputFilePrefix + i/*System.currentTimeMillis()*/ + ".png";
                 ImageIO.write(image, "png", new File(outputFilename));
+                i++;
                 return outputFilename;
+               
             }
             catch (IOException e) {
                 e.printStackTrace();
