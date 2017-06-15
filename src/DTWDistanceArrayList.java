@@ -33,7 +33,7 @@ public class DTWDistanceArrayList extends DataArrayListXY{
 		return DTWdistance;		
 	}
 	
-	//function to calculate DTW distance by comparing each x and y values
+	//function to calculate DTW distance by comparing each x and y values 
 	public DTWDistanceArrayList DTWdistance(KinematicDataList karr,GestureSpecificDataArrayList Grr)
 	{    
 		DTWDistanceArrayList dtwd=new DTWDistanceArrayList();
