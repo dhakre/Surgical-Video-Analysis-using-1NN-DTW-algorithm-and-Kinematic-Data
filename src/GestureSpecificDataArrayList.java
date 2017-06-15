@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class GestureSpecificDataArrayList {
 	
-	private ArrayList<Double> GXValue= new ArrayList<Double>();
-	private ArrayList<Double> GYValue= new ArrayList<Double>();
+	public ArrayList<Double> GXValue= new ArrayList<Double>();
+	public ArrayList<Double> GYValue= new ArrayList<Double>();
 	
 	public void addGXValue(double gxValue)
 	{
@@ -42,6 +42,35 @@ public class GestureSpecificDataArrayList {
 	    return arrX;
 	}
 	
+	public static GestureSpecificDataArrayList getGestureArrayList(String gfileLoc) throws IOException
+	{
+		BufferedReader br = new BufferedReader(new FileReader(gfileLoc)); 
+	    String line,a,b;
+	    double x,y;
+	    GestureSpecificDataArrayList Garr =new GestureSpecificDataArrayList() ;
+	    int i=0;
+	    while ((line = br.readLine()) != null) 
+	    {
+	    	line = line.trim();
+	        String[] values = line.split("  +");
+	       if(values.length>=3)
+	       { 
+	    	   a=values[0];
+	    	   b=values[1];
+	    	   x=Double.parseDouble(a);
+	    	   y=Double.parseDouble(b);
+	    	   //System.out.println("y="+y);
+	    	   Garr.addGXValue(x);
+	    	   Garr.GYValue.add(y);
+	    	   //System.out.println("Gy="+Garr.GYValue.get(i));
+	       }
+	       i++;
+	    }
+	    br.close();
+	    //System.out.println("Gy  size="+Garr.GYValue.size());
+	    return Garr;
+	}
+	
 	public void print(GestureSpecificDataArrayList g)
 	{   
 		ArrayList <Double> a=new ArrayList<Double>();
@@ -60,16 +89,18 @@ public class GestureSpecificDataArrayList {
 	}
 	
 	//main function
-	/*public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws IOException
 	{
 		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B001/gestureB001G14_8.txt";
 		ArrayList<Double> Gxvalue= new ArrayList<Double>();
 		GestureSpecificDataArrayList Gobj= new GestureSpecificDataArrayList();
-		Gobj.GXValue=Gobj.getGestureArrayList(gfileloc,0);
-		Gobj.GYValue=Gobj.getGestureArrayList(gfileloc,1);
-		Gobj.print(Gobj);
+		GestureSpecificDataArrayList Gobj1= new GestureSpecificDataArrayList();
+		Gobj1=GestureSpecificDataArrayList.getGestureArrayList(gfileloc);	   //	Gobj.GXValue=Gobj.getGestureArrayList(gfileloc,0);
+		//Gobj.GYValue=Gobj.getGestureArrayList(gfileloc,1);
+		//Gobj.print(Gobj);
+		Gobj.print(Gobj1);
 		int size = Gxvalue.size()-1;
-		System.out.println("size="+size);
-	}*/
+		//System.out.println("size="+size);
+	}
 
 }

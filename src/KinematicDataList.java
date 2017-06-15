@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class KinematicDataList {
-	private ArrayList<Double> KXValue= new ArrayList<Double>();
-	private ArrayList<Double> KYValue= new ArrayList<Double>();
+	public ArrayList<Double> KXValue= new ArrayList<Double>();
+	public ArrayList<Double> KYValue= new ArrayList<Double>();
 	
 	public void addKXValue(double kxValue)
 	{
@@ -16,13 +16,24 @@ public class KinematicDataList {
 		KYValue.add(kyValue);
 	}
 	
+	public double getXvalue(int index)
+	{
+		double x=KXValue.get(index);
+		return x;
+	}
+	public double getYvalue(int index)
+	{
+		double y=KYValue.get(index);
+		return y;
+	}
+	
 	//function to calculate kinematic data values
-	public ArrayList<Double> readkinematicValue(String kfileloc) throws IOException
+	public  KinematicDataList readkinematicValue(String kfileloc) throws IOException
 	{
 		BufferedReader br = new BufferedReader(new FileReader(kfileloc)); 
-	    String line,a;
-	    double element;
-	    ArrayList <Double> arr2X =new ArrayList<Double>();
+	    String line,a,b;
+	    double element1,element2;
+	    KinematicDataList kdata =new KinematicDataList();
 	    while ((line = br.readLine()) != null) 
 	    {
 	    	line = line.trim();
@@ -30,13 +41,17 @@ public class KinematicDataList {
 	       if(values.length>=3)
 	       { 
 	    	   a=values[0];
-	    	   element=Double.parseDouble(a);
-	    	   arr2X.add(element);
+	    	   b=values[1];
+	    	   element1=Double.parseDouble(a);
+	    	   element2=Double.parseDouble(b);
+	    	   kdata.addKXValue(element1);
+	    	   kdata.addKYValue(element2);
 	       }
 	    }
 	    br.close();
-	    return arr2X;
+	    return kdata;
 	}
+	
 	public void print(KinematicDataList k)
 	{   
 		ArrayList <Double> a=new ArrayList<Double>();
