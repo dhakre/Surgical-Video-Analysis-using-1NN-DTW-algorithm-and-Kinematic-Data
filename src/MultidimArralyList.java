@@ -97,14 +97,9 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		ArrayList<Double> GY1=new ArrayList<Double>();
 		
 		int sizekx;
-		//System.out.println(sizekx);
 		int sizeGx;
-		//System.out.println(sizeGx);
 		int sizeky;
-		//System.out.println(sizeky);
 		int sizeGy;
-		//System.out.println(sizeGy);
-		
 		double[] kX;
 		double[] GX;
 		double[] kY;
@@ -113,7 +108,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		for(int i=0;i<Kinematic.size();i++)
 		{  
 			kX1.add(Kinematic.get(i).get(0)); //get all X values
-			//System.out.println(kX1.get(i));
+		
 		}	
 		//put value into the array
 		sizekx=kX1.size();
@@ -181,11 +176,8 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		while((i<len2))
 		{    
 			ArrayList<ArrayList<Double>> kdata=new ArrayList<ArrayList<Double>>();
-            kdata=comparisonArrayValues(otherkfile,start.get(i),end.get(i));
-            //printDouble(kdata);
-			//System.out.println("begin "+start.get(i)+" end "+end.get(i)+"i="+i);
+                        kdata=comparisonArrayValues(otherkfile,start.get(i),end.get(i));
 			DTWdistance.addAll(distanceDTW(kdata,gestureArr));
-			//System.out.println("dtw"+j+" no. value ="+DTWdistance[j]);
 			i++;
 			j++;
 		}
@@ -208,7 +200,6 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		   }
 		   else
 		   {
-			   //minx=minx;
 			   posx=0;
 		   }
 		   
@@ -235,7 +226,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
     
     //main body
     public static void main(String[] args) throws NumberFormatException, IOException {
-    	String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
+    	        String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
 		String tfileloc="C:/Users/user/Documents/Intership/Knot_Tying/transcriptions/Knot_Tying_B003.txt";
 		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B003/gestureB003G14_7.txt";
 		
@@ -259,11 +250,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
     		//System.out.println("gesture X values = "+gestureValues.get(i).get(0));
     		//System.out.println("gesture Y values = "+gestureValues.get(i).get(1));
         }
-	    //calculate comparion array
-		//kotherValues=mobj.comparisonArrayValues(otherKfileloc, 8, 100);
-		//mobj.printDouble(kotherValues);
-		//System.out.println("size="+kotherValues.size());
-		
+	    	
 	   //calculate dtw distance 
 		dtwDistances=mobj.calculateDTWdistance(gfileloc, tfileloc, otherKfileloc, startValue, endValue);
 		mobj.printDouble(dtwDistances);
