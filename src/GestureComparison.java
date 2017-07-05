@@ -264,42 +264,5 @@ public class GestureComparison {
 		//calculate DTW ditance
 		dtwDistances=gobj.distanceDTW(gestureValues, kotherValues);
 		gobj.printDouble(dtwDistances);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	//*******************************************************************************************************************************
-	 
-	/*
-		//calculate gesture values start/end and names
-		mobj.getGestureStartEndValues(tfileloc, gestureName, startValue, endValue);
-		//mobj.print(startValue);
-		//mobj.print(endValue);
-		//calculate gesture values
-		gestureValues=mobj.getGestureValues(gfileloc);
-		for(int i=0;i<gestureValues.size();i++)
-        {
-    		//System.out.println("gesture X values = "+gestureValues.get(i).get(0));
-    		//System.out.println("gesture Y values = "+gestureValues.get(i).get(1));
-        }
-		dtwDistances=mobj.calculateDTWdistance(gfileloc, tfileloc, otherKfileloc, startValue, endValue);
-		mobj.printDouble(dtwDistances);
-		gname=mobj.recognizeGesture(dtwDistances,tfileloc);
-		//System.out.println("Actual gesture="+gestureName.get(8));
-		System.out.println("actual gesture="+actualgesture);
-		if(gname.equals(actualgesture))
-		{
-			System.out.println(" correct reconition");
-		}
-		else
-		{
-			System.out.println(" not correct reconition");
-		}
-    	*/
     }
 }
