@@ -87,7 +87,7 @@ public class GestureComparison {
    }
    //function to calculate DTW distance  by comparing each individual arrays individually
    //but here we have two arraylists of 77 values and we have to find 77 DTW distances between each value
-   public ArrayList<ArrayList<Double>> distanceDTW(ArrayList<ArrayList<Double>> Gesture ,ArrayList<ArrayList<Double>> Kinematic)
+   public ArrayList<ArrayList<Double>> distanceDTW77(ArrayList<ArrayList<Double>> Gesture ,ArrayList<ArrayList<Double>> Kinematic)
    {   
 	   //holds 77 DTW distance form the all 77 values
 	   ArrayList<ArrayList<Double>> dtwd=new ArrayList<ArrayList<Double>>();
@@ -110,19 +110,22 @@ public class GestureComparison {
 		   while((i<Kinematic.get(m).size())||(j<Gesture.get(n).size()))
 		   {
 			   kvalues=get1Ddata(Kinematic,i);
-			   System.out.println(kvalues);
+			   //System.out.println(kvalues);
 			   Gvalues=get1Ddata(Gesture,j);
-			   System.out.println(Gvalues);
+			  // System.out.println(Gvalues);
 			   karr=new double[kvalues.size()];          //create array of Kvalue size
 			   Garr=new double[Gvalues.size()];
 			   karr=assinArray(kvalues);
 			   Garr=assinArray(Gvalues);
 			   dtwData=DTW.DTWDistance(karr, Garr);           //get the dtw distance for a dimension
+			   System.out.println("dtwData="+dtwData);
 			   allDTWdistance.add(dtwData); 
+			   System.out.println("allDTWdistance="+allDTWdistance);
 			   			   
 		   }
 		   System.out.println(allDTWdistance);
-		   dtwd.add(allDTWdistance);                             //add calculated dtw to the main DTW arrayList
+		   dtwd.add(allDTWdistance);
+		   System.out.println("dtwd="+dtwd);//add calculated dtw to the main DTW arrayList
 		   allDTWdistance=new ArrayList<Double>();               //reinitionalize the DTW arrayList which holds the values for a single frame i.e all 77 values
 	   }
 		   
@@ -173,7 +176,7 @@ public class GestureComparison {
             kdata=comparisonArrayValues(otherkfile,start.get(i),end.get(i));
             //printDouble(kdata);
 			//System.out.println("begin "+start.get(i)+" end "+end.get(i)+"i="+i);
-			DTWdistance.addAll(distanceDTW(kdata,gestureArr));
+			DTWdistance.addAll(distanceDTW77(kdata,gestureArr));
 			//System.out.println("dtw"+j+" no. value ="+DTWdistance[j]);
 			i++;
 			j++;
@@ -182,44 +185,31 @@ public class GestureComparison {
 		return DTWdistance;	
    }
    //function to recognize gesture
-   public String recognizeGesture(ArrayList<ArrayList<Double>> DTWdistance,String tfileloc) throws IOException
+   public String recognizeGesture(ArrayList<ArrayList<Double>> DTWdistance,String gfileloc,String tfileloc ) throws IOException
    {
-	   double minx,miny;
+	   
+	   ArrayList<Double> minvalue=new ArrayList<Double>();
 	   String gname;
-	   int posx = 0,posy = 0;
-	   minx=DTWdistance.get(0).get(0);
-	   miny=DTWdistance.get(0).get(1);
-	   for(int i=1;i<DTWdistance.size();i++)
+	   int position = 0;
+	   for(int i=0;i<DTWdistance.size();i++)
+	   {                                          
+		   minvalue.add(DTWdistance.get(0).get(i));  //first value of each row of the DTW arrayList
+	   }
+	   for(int r=1;r<DTWdistance.size();r++)        //DTWdistance has total number of rows as total lines in the tfileloc because we have that many number of comparision with the Gesture file
 	   {
-		   if(minx>DTWdistance.get(i).get(0))
+		   for(int c=0;c<DTWdistance.get(r).size();c++)
 		   {
-			   minx=DTWdistance.get(i).get(0);
-			   posx=i;
-		   }
-		   else
-		   {
-			   //minx=minx;
-			   posx=0;
+			   if(minvalue.get(c)>DTWdistance.get(r).get(c))
+			   {
+				   minvalue.add(DTWdistance.get(r).get(c));
+			   }
+			   position=r;                           //note which position of the tfile matches the minimum DTW value
 		   }
 		   
-		   
 	   }
-	   for(int i=1;i<DTWdistance.size();i++)
-	   {
-		   if(miny>DTWdistance.get(i).get(1))
-		   {
-			   miny=DTWdistance.get(i).get(1);
-			   posy=i;
-		   }
-		   else
-		   {
-			   posy=0;
-		   }
-	   }
-	   System.out.println("dtw min X value="+minx+"position="+posx);
-		System.out.println("dtw min Y value="+miny+"position="+posy);
-		posx=posx;
-		gname=getGestureName(tfileloc,posx);
+	   System.out.println("dtw min  value position"+position);
+	
+		gname=DTWDistanceArrayList.getGestureName(tfileloc,position);
 		System.out.println("Recognized gesture name="+gname);
 		return gname;
 	   
@@ -246,23 +236,16 @@ public class GestureComparison {
 		String actualgesture=gfileloc.substring(ind, ind+3);
 		
 		//get geture  arrayLit value
-		gestureValues=gobj.getGestureValues(gfileloc);
+		//gestureValues=gobj.getGestureValues(gfileloc);
+		gestureValues=gobj.comparisonArrayValues(gfileloc, 0, 1);
 		//gobj.printDouble(gestureValues);
 		//comparison array values
-		kotherValues=gobj.comparisonArrayValues(otherKfileloc, 0, 5);
+		kotherValues=gobj.comparisonArrayValues(otherKfileloc, 0, 1);
 		//gobj.get1Ddata(kotherValues, 75);
 		gobj.printDouble(kotherValues);
-
-		/*for(int i=0;i<kotherValues.size();i++)
-		{   System.out.println(kotherValues.get(i).size());
-			for(int j=0;j<kotherValues.get(i).size();j++)
-			{
-			gobj.get1Ddata(kotherValues, j);
-			}
-		}
-		System.out.println("count ="+count);*/
 		//calculate DTW ditance
-		dtwDistances=gobj.distanceDTW(gestureValues, kotherValues);
+		dtwDistances=gobj.distanceDTW77(gestureValues, kotherValues);
 		gobj.printDouble(dtwDistances);
+	
     }
 }
