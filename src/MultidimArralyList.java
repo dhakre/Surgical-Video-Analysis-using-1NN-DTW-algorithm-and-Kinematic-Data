@@ -263,7 +263,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 	       }
 	   }
 	   double gcount=0;
-	   double totalGTask=5.0;
+	   double totalGToRecognize=CompareDistances.calculateFileLength(tfileLoc); //calculate total number of line in file
 	   double errorRate=0.0;
 	   //check dtw distance for all the files in the gesture task folder
     for(File file:listOfFiles)
@@ -282,17 +282,17 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		  if(gname.equals(actualgesture))
 			{
 				System.out.println(" correct reconition");
-				gcount++;
 			}
 			else
 			{
 				System.out.println(" not correct reconition");
+
+				gcount++;
 			}
-		 // System.out.println("*****************reconizing next gesture");
 		  
 	  }
     System.out.println(" Total correctly recongnized gestures="+gcount); 
-    errorRate=(totalGTask-gcount)/5.0;//divided by 5 because the total number of repetations for each surgeon is 5
+    errorRate=(gcount)/totalGToRecognize;//divided by 5 because the total number of repetations for each surgeon is 5
     System.out.println("KNN-DTW error rate for the Task gestures recognition="+errorRate*100+"%");
     
    }
