@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -97,9 +98,14 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		ArrayList<Double> GY1=new ArrayList<Double>();
 		
 		int sizekx;
+		//System.out.println(sizekx);
 		int sizeGx;
+		//System.out.println(sizeGx);
 		int sizeky;
+		//System.out.println(sizeky);
 		int sizeGy;
+		//System.out.println(sizeGy);
+		
 		double[] kX;
 		double[] GX;
 		double[] kY;
@@ -108,7 +114,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		for(int i=0;i<Kinematic.size();i++)
 		{  
 			kX1.add(Kinematic.get(i).get(0)); //get all X values
-		
+			//System.out.println(kX1.get(i));
 		}	
 		//put value into the array
 		sizekx=kX1.size();
@@ -176,8 +182,11 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		while((i<len2))
 		{    
 			ArrayList<ArrayList<Double>> kdata=new ArrayList<ArrayList<Double>>();
-                        kdata=comparisonArrayValues(otherkfile,start.get(i),end.get(i));
+            kdata=comparisonArrayValues(otherkfile,start.get(i),end.get(i));
+            //printDouble(kdata);
+			//System.out.println("begin "+start.get(i)+" end "+end.get(i)+"i="+i);
 			DTWdistance.addAll(distanceDTW(kdata,gestureArr));
+			//System.out.println("dtw"+j+" no. value ="+DTWdistance[j]);
 			i++;
 			j++;
 		}
@@ -185,9 +194,10 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		return DTWdistance;	
    }
    //function to recognize gesture
-   public void recognizeGesture(ArrayList<ArrayList<Double>> DTWdistance,String tfileloc) throws IOException
+   public String recognizeGesture(ArrayList<ArrayList<Double>> DTWdistance,String tfileloc) throws IOException
    {
 	   double minx,miny;
+	   String gname;
 	   int posx = 0,posy = 0;
 	   minx=DTWdistance.get(0).get(0);
 	   miny=DTWdistance.get(0).get(1);
@@ -200,6 +210,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		   }
 		   else
 		   {
+			   //minx=minx;
 			   posx=0;
 		   }
 		   
@@ -220,15 +231,71 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 	   System.out.println("dtw min X value="+minx+"position="+posx);
 		System.out.println("dtw min Y value="+miny+"position="+posy);
 		posx=posx;
-		System.out.println("Recognized gesture name="+getGestureName(tfileloc,posx));
+		gname=getGestureName(tfileloc,posx);
+		System.out.println("Recognized gesture name="+gname);
+		return gname;
 	   
+   }
+   public void checkForATask(String otherkfileloc,String tfileLoc,String GFolderLoc) throws NumberFormatException, IOException
+   {    //initional value
+	    ArrayList <Integer> startValue=new ArrayList <Integer>();
+		ArrayList <Integer> endValue=new ArrayList <Integer>();
+		ArrayList <String> gestureName=new ArrayList <String>();
+		DTWDistanceArrayList dtwDitances[];
+		ArrayList<ArrayList<Double>> gestureValues =new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> kotherValues =new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> dtwDistances=new ArrayList<ArrayList<Double>>();
+		String gname;
+	   
+	   
+	   
+	   int ind=GFolderLoc.indexOf("B");
+	   String GTask=GFolderLoc.substring(ind,ind+3);
+	   File folder = new File(GFolderLoc);
+	   File[] listOfFiles = folder.listFiles();
+
+	   for (File file : listOfFiles) {
+	       if (file.isFile()) {
+	    	   String gfile=file.toString();
+	           //System.out.println(file.getName());
+	    	   //System.out.println(gfile);
+	    	   
+	       }
+	   }
+	   //check dtw distance for all the files in the gesture task folder
+    for(File file:listOfFiles)
+	  {
+		  String gfile=file.toString();
+		  //get gesture values
+		  getGestureStartEndValues(tfileLoc, gestureName, startValue, endValue);
+		  gestureValues=getGestureValues(gfile);
+		  
+		  dtwDistances=calculateDTWdistance(gfile, tfileLoc, otherkfileloc, startValue, endValue);
+		  printDouble(dtwDistances);
+		  gname=recognizeGesture(dtwDistances,tfileLoc);
+		  int count=gfile.indexOf("G");
+		  String actualgesture=gfile.substring(count, count+3);
+		  if(gname.equals(actualgesture))
+			{
+				System.out.println(" correct reconition");
+			}
+			else
+			{
+				System.out.println(" not correct reconition");
+			}
+		  
+			
+		  
+		  
+	  }
    }
     
     //main body
     public static void main(String[] args) throws NumberFormatException, IOException {
-    	        String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
+    	String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
 		String tfileloc="C:/Users/user/Documents/Intership/Knot_Tying/transcriptions/Knot_Tying_B003.txt";
-		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B003/gestureB003G14_7.txt";
+		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B003/gestureB003G15_8.txt";
+		String gfolder="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B003";
 		
 		MultidimArralyList mobj=new MultidimArralyList();
 		
@@ -239,6 +306,11 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 		ArrayList<ArrayList<Double>> gestureValues =new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> kotherValues =new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> dtwDistances=new ArrayList<ArrayList<Double>>();
+		String gname;
+		//String actualgesture=gfileloc.substring(123, 126);
+		int ind=gfileloc.indexOf("G1");
+		String actualgesture=gfileloc.substring(ind, ind+3);
+		
 		//calculate gesture values start/end and names
 		mobj.getGestureStartEndValues(tfileloc, gestureName, startValue, endValue);
 		//mobj.print(startValue);
@@ -250,12 +322,27 @@ public class MultidimArralyList extends DTWDistanceArrayList {
     		//System.out.println("gesture X values = "+gestureValues.get(i).get(0));
     		//System.out.println("gesture Y values = "+gestureValues.get(i).get(1));
         }
-	    	
+	    //calculate comparion array
+		//kotherValues=mobj.comparisonArrayValues(otherKfileloc, 8, 100);
+		//mobj.printDouble(kotherValues);
+		//System.out.println("size="+kotherValues.size());
+		
 	   //calculate dtw distance 
 		dtwDistances=mobj.calculateDTWdistance(gfileloc, tfileloc, otherKfileloc, startValue, endValue);
-		mobj.printDouble(dtwDistances);
-		mobj.recognizeGesture(dtwDistances,tfileloc);
+		//mobj.printDouble(dtwDistances);
+		gname=mobj.recognizeGesture(dtwDistances,tfileloc);
+		//System.out.println("Actual gesture="+gestureName.get(8));
+		System.out.println("actual gesture="+actualgesture);
+		if(gname.equals(actualgesture))
+		{
+			System.out.println(" correct reconition");
+		}
+		else
+		{
+			System.out.println(" not correct reconition");
+		}
     	
+		mobj.checkForATask(otherKfileloc, tfileloc, gfolder);
     }
 
 }
