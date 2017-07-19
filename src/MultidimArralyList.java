@@ -36,7 +36,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 	    	   b=values[1];
 	    	   x=Double.parseDouble(a);
 	    	   y=Double.parseDouble(b);
-	    	   //System.out.println("y="+y);
+	    	   //System.out.println("y="+y); 
 	    	   GXY.add(x);
 	    	   GXY.add(y);
 	    	   GestureValues.add(GXY);
