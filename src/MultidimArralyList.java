@@ -36,7 +36,7 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 	    	   b=values[1];
 	    	   x=Double.parseDouble(a);
 	    	   y=Double.parseDouble(b);
-	    	   //System.out.println("y="+y); 
+	    	   //System.out.println("y="+y);
 	    	   GXY.add(x);
 	    	   GXY.add(y);
 	    	   GestureValues.add(GXY);
@@ -228,8 +228,8 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 			   posy=0;
 		   }
 	   }
-	   System.out.println("dtw min X value="+minx+"position="+posx);
-		System.out.println("dtw min Y value="+miny+"position="+posy);
+	   //System.out.println("dtw min X value="+minx+"position="+posx);
+		//System.out.println("dtw min Y value="+miny+"position="+posy);
 		posx=posx;
 		gname=getGestureName(tfileloc,posx);
 		System.out.println("Recognized gesture name="+gname);
@@ -262,32 +262,39 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 	    	   
 	       }
 	   }
+	   double gcount=0;
+	   double totalGTask=5.0;
+	   double errorRate=0.0;
 	   //check dtw distance for all the files in the gesture task folder
     for(File file:listOfFiles)
-	  {
+	  {    System.out.println("*********reconizing  gesture***********");
 		  String gfile=file.toString();
 		  //get gesture values
 		  getGestureStartEndValues(tfileLoc, gestureName, startValue, endValue);
 		  gestureValues=getGestureValues(gfile);
 		  
 		  dtwDistances=calculateDTWdistance(gfile, tfileLoc, otherkfileloc, startValue, endValue);
-		  printDouble(dtwDistances);
+		  //printDouble(dtwDistances);
 		  gname=recognizeGesture(dtwDistances,tfileLoc);
-		  int count=gfile.indexOf("G");
+		  int count=gfile.indexOf("G1");
 		  String actualgesture=gfile.substring(count, count+3);
+		  System.out.println("actual gesture = "+actualgesture);
 		  if(gname.equals(actualgesture))
 			{
 				System.out.println(" correct reconition");
+				gcount++;
 			}
 			else
 			{
 				System.out.println(" not correct reconition");
 			}
-		  
-			
-		  
+		 // System.out.println("*****************reconizing next gesture");
 		  
 	  }
+    System.out.println(" Total correctly recongnized gestures="+gcount); 
+    errorRate=(totalGTask-gcount)/5.0;//divided by 5 because the total number of repetations for each surgeon is 5
+    System.out.println("KNN-DTW error rate for the Task gestures recognition="+errorRate*100+"%");
+    
    }
     
     //main body
