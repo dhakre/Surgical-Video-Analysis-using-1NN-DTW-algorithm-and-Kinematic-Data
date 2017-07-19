@@ -291,7 +291,8 @@ public class MultidimArralyList extends DTWDistanceArrayList {
 			}
 		  
 	  }
-    System.out.println(" Total correctly recongnized gestures="+gcount); 
+    System.out.println(" Total wrongly recongnized gestures="+gcount); 
+    System.out.println(" Total gestures to classify="+totalGToRecognize);
     errorRate=(gcount)/totalGToRecognize;//divided by 5 because the total number of repetations for each surgeon is 5
     System.out.println("KNN-DTW error rate for the Task gestures recognition="+errorRate*100+"%");
     
