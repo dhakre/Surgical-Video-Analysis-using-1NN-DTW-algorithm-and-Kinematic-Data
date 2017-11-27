@@ -246,35 +246,7 @@ public class DTWDistanceArrayList extends DataArrayListXY{
         }
 	}
 	
-	//main method
-	public static void main(String args[]) throws IllegalArgumentException, IOException
-	{
-		DTWDistanceArrayList dt=new DTWDistanceArrayList();
-		String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
-		String tfileloc="C:/Users/user/Documents/Intership/Knot_Tying/transcriptions/Knot_Tying_B003.txt";
-		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B001/gestureB001G12_6.txt";
-		
-		
-		ArrayList <Integer> startValue=new ArrayList <Integer>();
-		ArrayList <Integer> endValue=new ArrayList <Integer>();
-		ArrayList <String> gestureName=new ArrayList <String>();
-		DTWDistanceArrayList dtwDitances[];
-		//generate the start and end values for the compariion
-		dt.getGestureStartEndValues(tfileloc, gestureName, startValue, endValue);
-		//calculate DTW distances
-		dtwDitances=dt.calculateDTWdistanceList(gfileloc, tfileloc, otherKfileloc, startValue, endValue);
-		dt.printDTW(dtwDitances);
-		dt.recognizeGestureFromDTW(dtwDitances,tfileloc);
-		//System.out.println(dt.getGestureName(tfileloc, 2));
-		
-		//KinematicDataList kdata=new KinematicDataList();
-		//kdata=dt.comparisonArrayList(otherKfileloc, 45, 85);
-		//kdata.print(kdata);
-		//dt.print(startValue);
-		//dt.print(endValue);
-		
-		
-	}
+	
 	
 
 }
