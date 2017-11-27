@@ -33,14 +33,5 @@ public class GestureKinematicData {
     bw.close();
     System.out.println(i);
  }
- public static void main(String args[]) throws IOException
- {
-	 String kinematic="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B001.txt";
-	 String saveLoc="C:/Users/user/Documents/Java gesture recognistion/KinematicData/";
-	 String name="G12";
-	 int start=45,end=85;
-	 GestureKinematicData gkd=new GestureKinematicData();
-	 gkd.readKinemticForGesture(kinematic, saveLoc, start, end, name);
-	 
- }
+  
 }
