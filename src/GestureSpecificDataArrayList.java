@@ -88,19 +88,6 @@ public class GestureSpecificDataArrayList {
 		
 	}
 	
-	//main function
-	public static void main(String args[]) throws IOException
-	{
-		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B001/gestureB001G14_8.txt";
-		ArrayList<Double> Gxvalue= new ArrayList<Double>();
-		GestureSpecificDataArrayList Gobj= new GestureSpecificDataArrayList();
-		GestureSpecificDataArrayList Gobj1= new GestureSpecificDataArrayList();
-		Gobj1=GestureSpecificDataArrayList.getGestureArrayList(gfileloc);	   //	Gobj.GXValue=Gobj.getGestureArrayList(gfileloc,0);
-		//Gobj.GYValue=Gobj.getGestureArrayList(gfileloc,1);
-		//Gobj.print(Gobj);
-		Gobj.print(Gobj1);
-		int size = Gxvalue.size()-1;
-		//System.out.println("size="+size);
-	}
+	
 
 }
