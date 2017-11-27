@@ -91,21 +91,5 @@ for (int i = 0; i < listOfFiles.length; i++)
 }
 
 }
-//main body
-public static void main(String args[]) throws IOException
-{
-	String folderloc,saveGraphLoc,filename;
-	folderloc="C:/Users/user/Documents/Intership/Suturing/kinematics/AllGestures";
-	saveGraphLoc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Suturing";
-	filename="B001";
-	//Scanner in = new Scanner(System.in);
-	//System.out.println("Enter the xy data file location ");
-    //xydataLoc=in.next();
-    //System.out.println("Enter the location to save the graph");
-    //saveGraphLoc=in.next();
-    CreateXYKinematicGraph obj=new CreateXYKinematicGraph();
-   // obj.createXYgraph(xydataLoc, saveGraphLoc,filename);
-    obj.createAllXYGraphs(folderloc,saveGraphLoc);
-    
-}
+
 }
