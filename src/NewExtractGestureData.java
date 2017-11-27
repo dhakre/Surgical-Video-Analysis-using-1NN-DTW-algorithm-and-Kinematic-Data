@@ -82,13 +82,5 @@ public class NewExtractGestureData {
 	    	readkinematicData(kinematicLoc,saveLoc,start,end,gestureName);
 		}
 	}
-public static void main(String args[]) throws IOException
-  {
-	NewExtractGestureData gd= new NewExtractGestureData();
-	String kinematicLoc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B001.txt";
-	String saveLoc="C:/Users/user/Documents/Java gesture recognistion/KinematicData/datagesture/";
-	int tline=10;
-	String gestureLoc="C:/Users/user/Documents/Intership/Knot_Tying/transcriptions/Knot_Tying_B001.txt";
-	gd.getGestureKinematicdata(kinematicLoc, gestureLoc, saveLoc, tline);
-  }
+
 }
