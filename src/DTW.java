@@ -207,31 +207,5 @@ System.out.println(i);
 	    }
 	    
 	    
-   // main body
-	    public static void main(String args[]) throws IOException{
-	    
-	    	String kloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
-	    	String gloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B003/gestureB001G11_9.txt";
-	    	String saveloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/";
-	    	DTW dt= new DTW();
-	    	double DTWdistanceX=0,DTWdistanceY=0;
-	    	double [] arrX1=dt.getdata(kloc);  //x data
-	    	double [] arrX2=dt.getdata(gloc);
-	    	double [] arrY1=dt.getpositiondata(kloc, 1);
-	    	double [] arrY2=dt.getpositiondata(gloc, 1);
-	    	int gfileLength=dt.calculateFileLength(gloc);
-	    		
-	    	DTWdistanceX=DTW.DTWDistance(arrX1, arrX2);
-	      System.out.println("DTW X distance="+DTWdistanceX);
-	    	//taking y data	
-	    	DTWdistanceY=DTW.DTWDistance(arrY1, arrY2);
-	    	System.out.println("DTW Y distance="+DTWdistanceY);
-	    	//dt.createGraph(kloc, saveloc, DTWdistanceX, DTWdistanceY);
-	    	//new function used from Multiplegraph class
-	    	MultipleGraph Mg= new MultipleGraph();
-	    	//Mg.createmultipleXYgraph(kloc, gloc, saveloc, DTWdistanceX, DTWdistanceY);
-	    	//Mg.multigraph(saveloc);
-	    	//Mg.graphmulti(saveloc, arrX1, arrX2, arrY1, arrY2);
-	    	Mg.createdistanceGraph(kloc, gloc, saveloc, DTWdistanceX, DTWdistanceY, gfileLength);
-	    }
+  
 }
