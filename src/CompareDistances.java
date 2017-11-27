@@ -166,45 +166,5 @@ public class CompareDistances extends DTW{
 		System.out.println(arr[i]);
 	}
 	
-	//main body
-	public static void main(String args[]) throws IOException
-	{   
-		//the tfileloc is the transcript file that corresponds to the value of the other Kfile that is being compared 
-		String tfileloc="C:/Users/user/Documents/Intership/Knot_Tying/transcriptions/Knot_Tying_B003.txt"; 
-		String gfileloc="C:/Users/user/Documents/Java gesture recognistion/XYKinematicDataGraphs/Gesture_Data/Knot_Tying/Knot_Tying_B001/gestureB001G12_6.txt";
-		String  kfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B001.txt";
-		String otherKfileloc="C:/Users/user/Documents/Intership/Knot_Tying/kinematics/AllGestures/Knot_Tying_B003.txt";
-		int length=calculateFileLength(tfileloc);
-		int []startValues=new int[length];
-		int []endValues=new int[length];
-		String []getureNames= new String[length];
-		double []arrX2;
-		double [] allDTWditance;
-		CompareDistances obj= new CompareDistances();
-		double []kdataArr=obj.getGestureArray(gfileloc);
-		/*for(int i=0;i<kdataArr.length;i++)
-		{
-			System.out.println(kdataArr[i]);
-		}
-		System.out.println(kdataArr.length);*/
-		obj.readGetureValues(tfileloc, startValues, endValues, getureNames);
-		/*for(int i=0;i<startValues.length;i++)
-		{
-			System.out.println("start"+startValues[i]);
-			System.out.println("end"+endValues[i]);
-			System.out.println("gname"+getureNames[i]);
-		}*/
-		//obj.calculateDTWdistance(gfileloc, otherKfileloc, startValues, endValues);
-		int start =8,end=132;
-		arrX2=obj.comparisonArr(otherKfileloc, start, end);
-		
-		allDTWditance=obj.calculateDTWdistance(gfileloc, otherKfileloc, tfileloc, startValues, endValues);
-		obj.printvalue(allDTWditance);
-		//for(int i=0;i<allDTWditance.length;i++)
-			//System.out.println(allDTWditance[i]);
-		//double DTW=obj.DTWDistance(kdataArr, arrX2);
-		//System.out.println("dtw value"+DTW);
-		obj.recognizeGesture(allDTWditance, getureNames);
-		
-	}
+	
 }
